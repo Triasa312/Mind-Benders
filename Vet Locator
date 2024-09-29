@@ -12,7 +12,7 @@ params = {
     "hl": "en",  # Set the language to English
     "gl": "in",  # Country code for India
     "google_domain": "google.co.in",  # Use Google India domain
-    "api_key": "replace with actual key"  # Replace with your actual SerpAPI key
+    "api_key": "889993"  # Replace with your actual SerpAPI key
 }
 
 # Perform the search using GoogleSearch

@@ -1,0 +1,51 @@
+!pip install google-search-results
+from serpapi import GoogleSearch
+
+# Take pincode as input from the user
+pincode = input("Enter your pincode: ")
+location = f"{pincode}, India"  # Use the user-provided pincode in the location
+
+# Define the parameters for the SerpAPI request
+params = {
+    "q": "Vet near me",
+    "location": location,  # Use the pincode in the location
+    "hl": "en",  # Set the language to English
+    "gl": "in",  # Country code for India
+    "google_domain": "google.co.in",  # Use Google India domain
+    "api_key": "889993"  # Replace with your actual SerpAPI key
+}
+
+# Perform the search using GoogleSearch
+search = GoogleSearch(params)
+results = search.get_dict()  # Get results in dictionary form
+
+# Parse and extract relevant information from "places" inside "local_results"
+vets_info = []
+
+if "local_results" in results and "places" in results["local_results"]:
+    for vet in results["local_results"]["places"]:
+        vet_info = {}
+
+        # Extracting the basic details of each vet
+        vet_info['name'] = vet.get('title', 'N/A')
+        vet_info['address'] = vet.get('address', 'N/A')
+        vet_info['rating'] = vet.get('rating', 'N/A')
+
+        # Extracting phone number if available
+        vet_info['phone'] = vet.get('phone', 'N/A')
+
+        # Assuming email, age, and gender are not provided in the SerpAPI results
+        vet_info['email'] = 'N/A'  # Placeholder as email isn't in the SerpAPI results
+        vet_info['age'] = 'N/A'    # Age data is not available from SerpAPI results
+        vet_info['gender'] = 'N/A' # Gender is also not provided
+
+        # Add the extracted vet information to the list
+        vets_info.append(vet_info)
+
+# Print the parsed results
+for vet in vets_info:
+    print(f"Name: {vet['name']}")
+    print(f"Address: {vet['address']}")
+    print(f"Phone: {vet['phone']}")
+    print(f"Rating: {vet['rating']}")
+    print("-" * 20)

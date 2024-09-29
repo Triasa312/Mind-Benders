@@ -1,0 +1,89 @@
+!pip install firebase-admin
+
+import firebase_admin
+from firebase_admin import credentials
+
+# Check if the app is already initialized
+if not firebase_admin._apps:
+    cred = credentials.Certificate("/content/idea-lab-99aec-firebase-adminsdk-wtqfo-45034d346b.json")
+    firebase_admin.initialize_app(cred)
+
+
+# Function to create a new user with email/password
+def create_user():
+    email = input("Enter user's email: ")
+    password = input("Enter user's password: ")
+
+    try:
+        user = auth.create_user(email=email, password=password)
+        print(f"User created successfully! UID: {user.uid}")
+    except Exception as e:
+        print(f"Error creating user: {e}")
+
+# Function to create a user with a phone number
+def create_phone_user():
+    phone_number = input("Enter phone number with country code (e.g., +1234567890): ")
+
+    try:
+        user = auth.create_user(phone_number=phone_number)
+        print(f"User created successfully! UID: {user.uid}")
+    except Exception as e:
+        print(f"Error creating user: {e}")
+
+# Function to get user details by UID
+def get_user_by_uid():
+    uid = input("Enter user's UID: ")
+
+    try:
+        user = auth.get_user(uid)
+        print(f"User information:\nEmail: {user.email}\nPhone Number: {user.phone_number}\nUID: {user.uid}")
+    except Exception as e:
+        print(f"Error fetching user: {e}")
+
+# Function to delete a user by UID
+def delete_user_by_uid():
+    uid = input("Enter user's UID to delete: ")
+
+    try:
+        auth.delete_user(uid)
+        print(f"User with UID {uid} has been deleted.")
+    except Exception as e:
+        print(f"Error deleting user: {e}")
+
+# Function to create a custom token for a user
+def create_custom_token():
+    uid = input("Enter user's UID to create custom token: ")
+
+    try:
+        custom_token = auth.create_custom_token(uid)
+        print(f"Custom token created for UID {uid}: {custom_token.decode('utf-8')}")
+    except Exception as e:
+        print(f"Error creating custom token: {e}")
+
+# Function to handle user input and perform the selected operation
+def handle_user_input():
+    print("\nSelect an operation:")
+    print("1. Create User (Email/Password)")
+    print("2. Create User (Phone Number)")
+    print("3. Get User Details")
+    print("4. Delete User")
+    print("5. Create Custom Token")
+
+    choice = input("Enter the number of the operation you want to perform: ")
+
+    if choice == '1':
+        create_user()
+    elif choice == '2':
+        create_phone_user()
+    elif choice == '3':
+        get_user_by_uid()
+    elif choice == '4':
+        delete_user_by_uid()
+    elif choice == '5':
+        create_custom_token()
+    else:
+        print("Invalid choice. Please select a valid operation.")
+
+# Main function
+if __name__ == "__main__":
+    handle_user_input()

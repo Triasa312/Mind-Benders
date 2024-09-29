@@ -5,7 +5,7 @@ from firebase_admin import credentials
 
 # Check if the app is already initialized
 if not firebase_admin._apps:
-    cred = credentials.Certificate("/content/idea-lab-99aec-firebase-adminsdk-wtqfo-45034d346b.json")
+    cred = credentials.Certificate("give the file path")
     firebase_admin.initialize_app(cred)
 
 

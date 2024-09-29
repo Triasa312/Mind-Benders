@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet O Care - Order Pet Clothes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Order Pet Clothes</h1>
+        
+        <h2 id="pet-type-display">Selected Pet: <span id="pet-type"></span></h2>
+
+        <form id="clothes-order-form">
+            <label for="clothes-selection">Choose Clothing Item:</label>
+            <select id="clothes-selection" name="clothes" required>
+                <option value="">Select Clothes...</option>
+                <option value="t-shirt">T-Shirt</option>
+                <option value="sweater">Sweater</option>
+                <option value="jacket">Jacket</option>
+                <option value="costume">Costume</option>
+            </select>
+
+            <label for="size">Select Size:</label>
+            <select id="size" name="size" required>
+                <option value="">Select Size...</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+                <option value="extra-large">Extra Large</option>
+            </select>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" required>
+
+            <label for="delivery-address">Delivery Address:</label>
+            <input type="text" id="delivery-address" name="address" required>
+
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        // Mock function to get the pet type from local storage (this can be modified as per your login implementation)
+        const petType = localStorage.getItem('petType') || 'Dog'; // Default to 'Dog' if not set
+        document.getElementById('pet-type').textContent = petType;
+    </script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    background-color: skyblue; /* Match previous page's background */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+h2 {
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}

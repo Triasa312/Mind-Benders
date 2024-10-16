@@ -1,4 +1,4 @@
-!pip install google-search-results
+import serpapi
 from serpapi import GoogleSearch
 
 # Take pincode as input from the user
@@ -12,7 +12,7 @@ params = {
     "hl": "en",  # Set the language to English
     "gl": "in",  # Country code for India
     "google_domain": "google.co.in",  # Use Google India domain
-    "api_key": "889993"  # Replace with your actual SerpAPI key
+    "api_key": "8c48cacef3b3978d6e3ab55d191c2cdf761fe9c1e876ff9a3a6bc35f6c270d72"  # Replace with your actual SerpAPI key
 }
 
 # Perform the search using GoogleSearch

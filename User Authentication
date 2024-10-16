@@ -1,11 +1,11 @@
-!pip install firebase-admin
+
 
 import firebase_admin
 from firebase_admin import credentials
 
 # Check if the app is already initialized
 if not firebase_admin._apps:
-    cred = credentials.Certificate("C:\Users\profs\Mind-Benders\idea-lab-99aec-firebase-adminsdk-wtqfo-45034d346b.json")
+    cred=credentials.Certificate("C:\\Users\\profs\\Mind-Benders\\Mind-Benders\\idea-lab-99aec-firebase-adminsdk-wtqfo-45034d346b.json")
     firebase_admin.initialize_app(cred)
 
 

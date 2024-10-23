@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Page</title>
+    <link rel="stylesheet" href="accounts.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your Account</h1>
+            <div class="user-info">
+                <div class="user-name">
+                    <span>Name: John Doe</span>
+                    <span class="edit-option">Edit</span>
+                </div>
+                <div class="user-phone">
+                    <span>Phone Number: (123) 456-7890</span>
+                    <span class="edit-option">Edit</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="options">
+            <h2>Account Options</h2>
+            <ul>
+                <li><a href="#orders" onclick="navigateTo('orders')">My Orders</a></li>
+                <li><a href="#prescriptions" onclick="navigateTo('prescriptions')">Prescriptions</a></li>
+                <li><a href="#help" onclick="navigateTo('help')">Help</a></li>
+                <li><a href="#privacy" onclick="navigateTo('privacy')">Privacy & Security</a></li>
+                <li><a href="#manage-address" onclick="navigateTo('manage-address')">Manage Address</a></li>
+                <li><a href="#logout" onclick="navigateTo('log-out')">Manage Address</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(section) {
+            // Here you can implement the navigation logic to each section.
+            // For example, you could change the content of the page based on the section.
+            alert("Navigating to: " + section); // Placeholder for navigation
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color:#f4f4f9;
+    font-family: Arial, sans-serif;
+    background-color: #fcd6ee;
+    /* padding: 20px; */
+}
+
+.container {
+    /* max-width: 800px; */
+    margin: 0 auto;
+    text-align: center;
+}
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+h1 {
+    margin-bottom: 20px;
+    
+}
+
+.pet-selection {
+    margin-bottom: 30px;
+}
+
+.pet-type {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.pet-type:hover {
+    background-color: #218838;
+}
+
+.food-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.food-card {
+    width: 300px;
+    background-color: white;
+    color:#555;
+    margin: 40px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.food-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.food-card h3 {
+    margin: 15px 0 10px;
+}
+
+.food-card p {
+    font-size: 14px;
+    color: #555;
+}

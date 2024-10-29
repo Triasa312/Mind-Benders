@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+h1 {
+    /* font-family:Verdana, Geneva, Tahoma, sans-serif; */
+    font-size: 2rem;
+}
+h2 {
+    /* font-family:Verdana, Geneva, Tahoma, sans-serif; */
+    font-size: 3.5rem;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffc7f2;
+    color: #636363;
+}
+
+header{
+    display:flex;
+    text-align: left;
+    padding: 20px 0;
+    background-color: #4CAF50;
+    color: white;
+}
+header .homebutton {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .homebutton:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .signin {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .signin:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+.spacer{
+    flex-grow: 1;
+}
+
+header .account {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .account:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .navbar-links{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .navbar-links:hover{
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+
+.hero{
+    display:flex;
+    text-align: left;
+    padding: 40px 50px 80px;
+    background-color: #4CAF50;
+    color: white;
+}
+.hero-content{
+    margin-top: 50px;
+}
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+
+}
+.hero-content p {
+    max-width: 50vw;
+    font-size: 1rem;
+    margin-bottom: 20px;
+
+}
+.hero-img{
+    width: 30%;
+    padding-right: 100px;
+    /* height: 50%; */
+    /* margin-left: 20px; */
+}
+
+
+.options {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 20px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 40px;
+
+}
+
+.option {
+    width: 250px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    margin: 20px;
+    transition: transform 0.3s;
+}
+
+.option:hover {
+    transform: scale(1.05);
+}
+
+.option img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.option h2 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.option p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.option-button  {
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.option-button:hover{
+    background-color: #e65c00;
+}
+
+.options-top{
+    margin-top: 20px;
+    padding-top: 40px;
+    text-align: center;
+}
+/* Footer Styling */
+.footer {
+    background-color: #a56095;
+    color: white;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+     
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+    margin: 10px;
+}
+
+.footer-section h3 {
+    color: #ff6600;
+    margin-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-section a:hover {
+    color: #ff6600;
+}
+
+.social-icons a {
+    margin: 0 5px;
+}
+
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s;
+}
+
+.social-icons img:hover {
+    transform: scale(1.1);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #afafaf;
+}
+.footer button{
+    background-color: #33333300;
+    border-color: #33333300;
+    
+}
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+    .options {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .option {
+        width: 90%;
+    }
+}

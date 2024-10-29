@@ -1,0 +1,264 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fcd8fe;
+    color: #333;
+}
+.container {
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Align items vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; /* Ensure it takes full viewport height */
+}
+
+.pet-selection {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center buttons horizontally */
+    margin: 20px 0; /* Add some margin for spacing */
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+.page-note {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding-bottom: 40px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.page-note p {
+    font-size: 1rem;
+}
+
+.search-section {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+#medicine-search {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+
+.medicine-list {
+    max-width: 800px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.medicine-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.medicine-item img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.medicine-info {
+    flex: 1;
+}
+
+.medicine-info h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.medicine-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.add-to-cart {
+    padding: 10px 15px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #e65c00;
+}
+
+header{
+    display:flex;
+    text-align: left;
+    padding: 20px 0;
+    background-color: #4CAF50;
+    color: white;
+}
+header .homebutton {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .homebutton:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .signin {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .signin:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+.spacer{
+    flex-grow: 1;
+}
+
+header .account {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .account:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .navbar-links{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .navbar-links:hover{
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+
+.pet-selection {
+    margin-bottom: 30px;
+}
+.pet-selection h2{
+    color: #555;
+}
+
+.pet-type {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.pet-type:hover {
+    background-color: #28a745;
+}
+
+.medicine-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.medicine-card {
+    display: block;
+    width: 300px;
+    background-color: white;
+    color:#555;
+    margin: 40px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.medicine-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.medicine-card h3 {
+    margin: 15px 0 10px;
+}
+
+.medicine-card p {
+    font-size: 14px;
+    color: #555;
+}

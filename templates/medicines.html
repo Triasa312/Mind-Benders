@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicines Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='medicines.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Set a default font */
+        }
+
+        .container {
+            display: flex; /* Use flexbox for centering */
+            flex-direction: column; /* Align items vertically */
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            min-height: 100vh; /* Ensure it takes full viewport height */
+        }
+
+        .medicine-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 16px;
+            margin: 16px;
+            text-align: center;
+            width: 200px; /* Adjust width as needed */
+        }
+
+        .medicine-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .add-to-cart-button {
+            background-color: green; /* Green background color */
+            color: white; /* White text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: darkgreen; /* Darker green on hover */
+        }
+
+        .pet-selection {
+            display: flex; /* Use flexbox */
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center; /* Center elements horizontally */
+            margin: 20px 0; /* Add some margin for spacing */
+        }
+
+        .pet-buttons {
+            display: flex; /* Use flexbox for button layout */
+            justify-content: center; /* Center buttons horizontally */
+            margin-top: 10px; /* Add space between heading and buttons */
+        }
+
+        .pet-type {
+            margin: 0 10px; /* Space between buttons */
+            padding: 10px 20px; /* Padding for button size */
+            background-color: darkgreen; /* Button color */
+            color: white; /* Button text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer on hover */
+            transition: background-color 0.3s; /* Transition effect */
+        }
+
+        .pet-type:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+    <script>
+        const cart = []; // Array to hold cart items
+
+        function filterFood(petType) {
+            const medicineCards = document.querySelectorAll('.medicine-card');
+
+            // Show all cards if no pet type is selected
+            if (!petType) {
+                medicineCards.forEach(card => card.style.display = 'block');
+                return;
+            }
+
+            // Loop through all medicine cards
+            medicineCards.forEach(card => {
+                if (card.classList.contains(`${petType}-medicine`)) {
+                    card.style.display = 'block'; // Show this card
+                } else {
+                    card.style.display = 'none'; // Hide this card
+                }
+            });
+        }
+
+        function addToCart(medicineName, price, image) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name: medicineName, price: price, image: image });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${medicineName} added to cart at Rs.${price.toFixed(2)}`);
+        }
+
+        function searchMedicines() {
+            const searchQuery = document.getElementById('medicine-search').value.toLowerCase();
+            const medicineCards = document.querySelectorAll('.medicine-card');
+
+            medicineCards.forEach(card => {
+                const medicineName = card.querySelector('h3').textContent.toLowerCase();
+                if (medicineName.includes(searchQuery)) {
+                    card.style.display = 'block'; // Show card if it matches the search query
+                } else {
+                    card.style.display = 'none'; // Hide card if it doesn't match
+                }
+            });
+        }
+
+        function viewCart() {
+            window.location.href = "cart.html"; // Redirect to cart page
+        }
+
+        function onAppointmentClick() {
+            window.location.href = "{{ url_for('appointments') }}";
+        }
+        function onMedicineClick() {
+            window.location.href = "{{ url_for('medicines') }}";
+        }
+        function onOrderFoodClick(){
+            window.location.href = "{{ url_for('foodordering') }}";
+        }
+        function onOrderClothClick(){
+            window.location.href = "{{ url_for('clothes') }}";
+        }
+        function onHomeClick(){
+            window.location.href = "{{ url_for('home') }}";
+        }
+        function callSigninPage(){
+            window.location.href = "{{ url_for('signin') }}";
+        }
+        function callAccountFlyer(){
+            window.location.href = "{{ url_for('account') }}";
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <button onclick="onHomeClick()" class="homebutton">PET-O-CARE</button>
+        <div class="spacer"></div>
+        <div>
+            <button class="navbar-links" onclick="onMedicineClick()">Medicines</button>
+            <button class="navbar-links" onclick="onAppointmentClick()">Appointments</button>
+            <button class="navbar-links" onclick="onOrderFoodClick()">Foods</button>
+            <button class="navbar-links" onclick="onOrderClothClick()">Clothes</button>
+        </div>
+        <div class="spacer"></div>
+        <button onclick="callSigninPage()" class="signin">Log In</button>
+        <button onclick="callAccountFlyer()" class="account">Account</button>
+    </header>
+    <div class="page-note">       
+        <h1>Medicine Booking</h1>
+        <p>Find and order the best medicines for your pet's health.</p>
+    </div>
+
+    <section class="search-section">
+        <input type="text" id="medicine-search" placeholder="Search for medicines..." oninput="searchMedicines()">
+        <button class="search-button">Search</button>
+    </section>
+
+    <div class="container">
+        <div class="pet-selection">
+            <h2>Select Pet Type</h2>
+            <div class="pet-buttons">
+                <button class="pet-type" id="dog" onclick="filterFood('dog')">Dog</button>
+                <button class="pet-type" id="cat" onclick="filterFood('cat')">Cat</button>
+            </div>
+        </div>
+
+        <div class="medicine-options">
+            <!-- Dog medicine options -->
+            <div class="medicine-card dog-medicine" id="dog-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/products/Pharmacy_17-370846.png?v=1696557627" alt="Dog Medicine">
+                <h3>MSD Animal Health Bravecto (Fluralaner) Dog Tick and Flea Control Tablet</h3>
+                <p>pack of 1 tablet</p>
+                <p>Price: Rs.1980</p>
+                <button class="add-to-cart-button" onclick="addToCart('MSD Animal Health Bravecto (Fluralaner) Dog Tick and Flea Control Tablet',1980.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/products/Pharmacy_17-370846.png?v=1696557627')">Add to Cart</button>
+            </div>
+            <div class="medicine-card dog-medicine" id="dog-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Pharmacy_20.png?v=1696607539" alt="Dog Medicine">
+                <h3>Savavet Fiprofort Plus (Fipronil) Tick and Flea Control Spot On for Dogs</h3>
+                
+                <p>Price: Rs.206</p>
+                <button class="add-to-cart-button" onclick="addToCart('Savavet Fiprofort Plus (Fipronil) Tick and Flea Control Spot On for Dogs',206.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Pharmacy_20.png?v=1696607539')">Add to Cart</button>
+            </div>
+            <div class="medicine-card dog-medicine" id="dog-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Himpyrin_1.png?v=1724235158" alt="Dog Medicine">
+                <h3>Himalaya Himpyrin Anti Inflammatory & Pain Relief Drops for Dogs and Cats</h3>
+                
+                <p>Price: Rs.129</p>
+                <button class="add-to-cart-button" onclick="addToCart('Himalaya Himpyrin Anti Inflammatory & Pain Relief Drops for Dogs and Cats',129.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Himpyrin_1.png?v=1724235158')">Add to Cart</button>
+            </div>
+                
+            <div class="medicine-card dog-medicine" id="dog-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Pharmacy_45_8df9148f-008e-40c8-85fa-0f75129d952d.png?v=1696449957" alt="Dog Medicine">
+                <h3>Venkys Gutwell Pre & Probiotics Gut Health Powder for Dogs</h3>
+                
+                <p>Price: Rs.285</p>
+                <button class="add-to-cart-button" onclick="addToCart('Venkys Gutwell Pre & Probiotics Gut Health Powder for Dogs',285.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Pharmacy_45_8df9148f-008e-40c8-85fa-0f75129d952d.png?v=1696449957')">Add to Cart</button>
+            </div>
+            <div class="medicine-card dog-medicine" id="dog-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/products/Pharmacy_93-680885.png?v=1696449274" alt="Dog Medicine">
+                <h3>Intas Pomisol Ear Drops for Dogs(15ml)</h3>
+                
+                <p>Price: Rs78</p>
+                <button class="add-to-cart-button" onclick="addToCart('Intas Pomisol Ear Drops for Dogs(15ml)',78.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/products/Pharmacy_93-680885.png?v=1696449274')">Add to Cart</button>
+            </div>
+            <!-- Cat medicine options -->
+            <div class="medicine-card cat-medicine" id="cat-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/products/Pharmacy_93-680885.png?v=1696449274" alt="Cat Medicine">
+                <h3>Intas Pomisol Ear Drops for Cats(15ml)</h3>
+                
+                <p>Price: Rs78</p>
+                <button class="add-to-cart-button" onclick="addToCart('Intas Pomisol Ear Drops for Cats(15ml)',285.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/products/Pharmacy_93-680885.png?v=1696449274')">Add to Cart</button>
+            </div>
+            <div class="medicine-card cat-medicine" id="cat-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Pharmacy_45_8df9148f-008e-40c8-85fa-0f75129d952d.png?v=1696449957" alt="Cat Medicine">
+                <h3>Venkys Gutwell Pre & Probiotics Gut Health Powder for Cats</h3>
+                
+                <p>Price: Rs.285</p>
+                <button class="add-to-cart-button" onclick="addToCart('Venkys Gutwell Pre & Probiotics Gut Health Powder for Cats',78.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Pharmacy_45_8df9148f-008e-40c8-85fa-0f75129d952d.png?v=1696449957')">Add to Cart</button>
+            </div>
+        
+            <div class="medicine-card cat-medicine" id="cat-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Frame_344685253_1.png?v=1727420374" alt="Cat Medicine">
+                <h3>Fresh For Purrs Liverlicious Carrot Supplement for Cats</h3>
+                
+                <p>Price: Rs.106</p>
+                <button class="add-to-cart-button" onclick="addToCart('Fresh For Purrs Liverlicious Carrot Supplement for Cats',106.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Frame_344685253_1.png?v=1727420374')">Add to Cart</button>
+            </div>
+            <div class="medicine-card cat-medicine" id="cat-medicine">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Himpyrin_1.png?v=1724235158" alt="Cat Medicine">
+                <h3>Himalaya Himpyrin Anti Inflammatory & Pain Relief Drops for Dogs and Cats</h3>
+                
+                <p>Price: Rs.129</p>
+                <button class="add-to-cart-button" onclick="addToCart('Himalaya Himpyrin Anti Inflammatory & Pain Relief Drops for Dogs and Cats',129.00,'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Himpyrin_1.png?v=1724235158')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

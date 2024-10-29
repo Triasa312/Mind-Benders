@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='foodordering.css') }}">
+    <style>
+        .food-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 16px;
+            margin: 16px;
+            text-align: center;
+            width: 200px; /* Adjust width as needed */
+        }
+
+        .food-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .add-to-cart-button {
+            background-color: green; /* Green background color */
+            color: white; /* White text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: darkgreen; /* Darker green on hover */
+        }
+    </style>
+    <script>
+        function filterFood(petType) {
+            const foodCards = document.querySelectorAll('.food-card');
+
+            // Show all cards if no pet type is selected
+            if (!petType) {
+                foodCards.forEach(card => card.style.display = 'block');
+                return;
+            }
+
+            // Loop through all food cards
+            foodCards.forEach(card => {
+                card.style.display = card.classList.contains(`${petType}-food`) ? 'block' : 'none';
+            });
+        }
+
+        function addToCart(foodName, price, image) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name: foodName, price: price, image: image });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${foodName} added to cart at Rs.${price.toFixed(2)}`);
+        }
+    
+        function viewCart() {
+            window.location.href = "cart.html"; // Redirect to cart page
+        }
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+        function onAppointmentClick() {
+            navigateTo("{{ url_for('appointments') }}");
+        }
+        function onMedicineClick() {
+            navigateTo("{{ url_for('medicines') }}");
+        }
+        function onOrderFoodClick() {
+            navigateTo("{{ url_for('foodordering') }}");
+        }
+        function onOrderClothClick() {
+            navigateTo("{{ url_for('clothes') }}");
+        }
+        function onHomeClick() {
+            navigateTo("{{ url_for('home') }}");
+        }
+        function callSigninPage() {
+            navigateTo("{{ url_for('signin') }}");
+        }
+        function callAccountFlyer() {
+            navigateTo("{{ url_for('account') }}");
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <button onclick="onHomeClick()" class="homebutton">PET-O-CARE</button>
+        <div class="spacer"></div>
+        <div>
+            <button class="navbar-links" onclick="onMedicineClick()">Medicines</button>
+            <button class="navbar-links" onclick="onAppointmentClick()">Appointments</button>
+            <button class="navbar-links" onclick="onOrderFoodClick()">Foods</button>
+            <button class="navbar-links" onclick="onOrderClothClick()">Clothes</button>
+        </div>
+        <div class="spacer"></div>
+        <button onclick="callSigninPage()" class="signin">Log In</button>
+        <button onclick="callAccountFlyer()" class="account">Account</button>
+    </header>
+    <div class="page-note">       
+        <h1>Pet Food Ordering</h1>
+    </div>
+    <div class="container">
+        
+        <div class="pet-selection">
+            <h2>Select Pet Type</h2>
+            <button class="pet-type" id="dog" onclick="filterFood('dog')">Dog</button>
+            <button class="pet-type" id="cat" onclick="filterFood('cat')">Cat</button>
+        </div>
+
+        <div class="food-options">
+            <!-- Dog food options -->
+            <div class="food-card dog-food">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Frame344684061.png?v=1716471027" alt="Dog Food">
+                <h3>Henlo Chicken and Egg Baked Dry Food for Adult Dogs & Puppies</h3>
+                <p>High-quality food for dogs</p>
+                <p>Price: Rs.120</p>
+                <button class="add-to-cart-button" onclick="addToCart('Henlo Chicken and Egg Baked Dry Food for Adult Dogs & Puppies', 120.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Frame344684061.png?v=1716471027')">Add to Cart</button>
+            </div>
+            <div class="food-card dog-food">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/1_P1_2317462b-08f9-4ad6-92ee-a84e5ae09722.png?v=1696602512" alt="Dog Food">
+                <h3>Royal Canin Maxi Puppy Dog Dry Food</h3>
+                <p>High-quality food for dogs</p>
+                <p>Price: Rs.880</p>
+                <button class="add-to-cart-button" onclick="addToCart('Royal Canin Maxi Puppy Dog Dry Food', 880.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/1_P1_2317462b-08f9-4ad6-92ee-a84e5ae09722.png?v=1696602512')">Add to Cart</button>
+            </div>
+            <div class="food-card dog-food">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Petstar_8.png?v=1727435472" alt="Dog Food">
+                <h3>Mankind Petstar Chicken and Wheat Adult Dog Dry Food</h3>
+                <p>High-quality food for dogs</p>
+                <p>Price: Rs.879</p>
+                <button class="add-to-cart-button" onclick="addToCart('Mankind Petstar Chicken and Wheat Adult Dog Dry Food', 879.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Petstar_8.png?v=1727435472')">Add to Cart</button>
+            </div>
+            <div class="food-card dog-food">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/3_4_92f49d09-c691-4338-8142-a406309eee1e.jpg?v=1713775569" alt="Dog Food">
+                <h3>Pedigree Chicken and Vegetables Adult Dog Dry Food</h3>
+                <p>Nutritious meals for dogs</p>
+                <p>Price: Rs.3314</p>
+                <button class="add-to-cart-button" onclick="addToCart('Pedigree Chicken and Vegetables Adult Dog Dry Food', 3314.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/3_4_92f49d09-c691-4338-8142-a406309eee1e.jpg?v=1713775569')">Add to Cart</button>
+            </div>
+            <div class="food-card dog-food">
+                <img src="https://supertails.com/cdn/shop/files/DroolsOptimumPerformanceAdultDogFood_20kg.png?v=1725525116" alt="Dog Food">
+                <h3>Drools Optimum Performance Adult Dog Dry Food</h3>
+                <p>Nutritious meals for dogs</p>
+                <p>Price: Rs.2635</p>
+                <button class="add-to-cart-button" onclick="addToCart('Drools Optimum Performance Adult Dog Dry Food', 2635.00, 'https://supertails.com/cdn/shop/files/DroolsOptimumPerformanceAdultDogFood_20kg.png?v=1725525116')">Add to Cart</button>
+            </div>
+
+            <!-- Cat food options -->
+            <div class="food-card cat-food">
+                <img src="https://supertails.com/cdn/shop/products/1_88adc76d-a171-4cfe-bd9d-6fcec38250eb.png?v=1700817567" alt="Cat Food">
+                <h3>Whiskas Ocean Fish Flavour Adult Cat Dry Food</h3>
+                <p>Nutritious meals for cats</p>
+                <p>Price: Rs.4675</p>
+                <button class="add-to-cart-button" onclick="addToCart('Whiskas Ocean Fish Flavour Adult Cat Dry Food', 4675.00, 'https://supertails.com/cdn/shop/products/1_88adc76d-a171-4cfe-bd9d-6fcec38250eb.png?v=1700817567')">Add to Cart</button>
+            </div>
+            
+            <div class="food-card cat-food">
+                <img src="https://supertails.com/cdn/shop/products/petandparents_2.png?v=1696603608" alt="Cat Food">
+                <h3>Royal Canin Persian Adult Cat Dry Food</h3>
+                <p>Delicious meals for cats</p>
+                <p>Price: Rs.510</p>
+                <button class="add-to-cart-button" onclick="addToCart('Royal Canin Persian Adult Cat Dry Food', 510.00, 'https://supertails.com/cdn/shop/products/petandparents_2.png?v=1696603608')">Add to Cart</button>
+            </div>
+            <div class="food-card cat-food">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Sheba_dry_food_GIF.gif?v=1729414214" alt="Cat Food">
+                <h3>Sheba Chicken Flavour Irresistible All Life Stage Cat Dry Food</h3>
+                <p>Delicious meals for cats</p>
+                <p>Price: Rs.967</p>
+                <button class="add-to-cart-button" onclick="addToCart('Sheba Chicken Flavour Irresistible All Life Stage Cat Dry Food', 967.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Sheba_dry_food_GIF.gif?v=1729414214')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>About Us</h3>
+            <p>Learn more about Pet O Care, our mission, and how we support pet owners worldwide.</p>
+            
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <button onclick="onPrivacyClick()" class = "option-button">Privacy</button>
+                <button onclick="onTermsClick()" class = "option-button">Terms of Services</button>
+            </ul>
+        </div>
+       
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: triasa312@gmail.com</p>
+            <p>Phone: 7003485426</p>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                
+                <a href="#"><img src="{{ url_for('static', filename='icons/instagram.png') }}" alt="Instagram"></a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Pet O Care. All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

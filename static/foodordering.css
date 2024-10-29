@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color:#f4f4f9;
+    font-family: Arial, sans-serif;
+    background-color: #fcd6ee;
+    /* padding: 20px; */
+}
+
+.container {
+    text-align: center;
+    margin-top: 20px;
+}
+header{
+    display:flex;
+    text-align: left;
+    padding: 20px 0;
+    background-color: #4CAF50;
+    color: white;
+}
+.page-note {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    /* padding-bottom: 40px; */
+}
+.add-to-cart-button {
+    background-color: green; /* Green background color */
+    color: white; /* White text color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-button:hover {
+    background-color: darkgreen; /* Darker green on hover */
+}
+header .homebutton {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .homebutton:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .signin {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .signin:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+.spacer{
+    flex-grow: 1;
+}
+
+header .account {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .account:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .navbar-links{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .navbar-links:hover{
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+h1 {
+    margin-bottom: 20px;
+    
+}
+
+.pet-selection {
+    margin-bottom: 30px;
+}
+.pet-selection h2{
+    color: #555;
+}
+
+.pet-type {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.pet-type:hover {
+    background-color: #218838;
+}
+
+.food-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.food-card {
+    display: block;
+    width: 300px;
+    background-color: white;
+    color:#555;
+    margin: 40px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.food-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.food-card h3 {
+    margin: 15px 0 10px;
+}
+
+.food-card p {
+    font-size: 14px;
+    color: #555;
+}
+/* Footer Styling */
+.footer {
+    background-color: #a56095;
+    color: white;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+    margin: 10px;
+}
+
+.footer-section h3 {
+    color: #ff6600;
+    margin-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-section a:hover {
+    color: #ff6600;
+}
+
+.social-icons a {
+    margin: 0 5px;
+}
+
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s;
+}
+
+.social-icons img:hover {
+    transform: scale(1.1);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #afafaf;
+}

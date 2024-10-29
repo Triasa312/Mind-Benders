@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fcd8fe;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+.page-note {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding-bottom: 40px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.page-note p {
+    font-size: 1rem;
+}
+
+.search-section {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+#medicine-search {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+#clinics-list {
+    margin-top: 20px;
+}
+.clinic-card {
+    background-color: #e9ecef;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.clinic-card h2 {
+    color: #495057;
+}
+
+.clinic-card p {
+    color: #6c757d;
+}
+header{
+    display:flex;
+    text-align: left;
+    padding: 20px 0;
+    background-color: #4CAF50;
+    color: white;
+}
+header .homebutton {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .homebutton:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .signin {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .signin:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+.spacer{
+    flex-grow: 1;
+}
+
+header .account {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .account:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .navbar-links{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .navbar-links:hover{
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}

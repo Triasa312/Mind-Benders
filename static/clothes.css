@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color:#f4f4f9;
+    font-family: Arial, sans-serif;
+    background-color: #fcd6ee;
+    /* padding: 20px; */
+}
+
+.container {
+    text-align: center;
+    margin-top: 20px;
+}
+header{
+    display:flex;
+    text-align: left;
+    padding: 20px 0;
+    background-color: #4CAF50;
+    color: white;
+}
+.page-note {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    /* padding-bottom: 40px; */
+}
+.add-to-cart-button {
+    background-color: green; /* Green background color */
+    color: white; /* White text color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-button:hover {
+    background-color: darkgreen; /* Darker green on hover */
+}
+header .homebutton {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .homebutton:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .signin {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 20px;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .signin:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+.spacer{
+    flex-grow: 1;
+}
+
+header .account {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .account:hover {
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+header .navbar-links{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ff660000;
+    border-color:#ff660000 ;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+header .navbar-links:hover{
+    color: rgb(225, 225, 225);
+    background-color: #ff660000;
+}
+
+h1 {
+    margin-bottom: 20px;
+    
+}
+
+
+
+
+
+.clothes-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.clothes-card {
+    display: block;
+    width: 300px;
+    background-color: white;
+    color:#555;
+    margin: 40px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clothes-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.clothes-card h3 {
+    margin: 15px 0 10px;
+}
+
+.clothes-card p {
+    font-size: 14px;
+    color: #555;
+}

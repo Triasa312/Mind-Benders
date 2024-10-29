@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Pet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8; /* Light background for the page */
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9e9f6; /* Light pink background for the form */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff4c3b;
+        }
+        .pet-list {
+            margin-top: 20px;
+        }
+        .pet-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add a Pet</h1>
+        <label for="petName">Pet Name:</label>
+        <input type="text" id="petName" required>
+
+        <label for="petType">Pet Type:</label>
+        <select id="petType" required>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+        </select>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required>
+
+        <button onclick="addPet()">Add Pet</button>
+
+        <div class="pet-list" id="petList">
+            <h2>Your Pets:</h2>
+            <!-- Pet items will be added here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Load pets from localStorage when the page loads
+        window.onload = function() {
+            loadPets();
+        };
+
+        function addPet() {
+            const name = document.getElementById('petName').value;
+            const type = document.getElementById('petType').value;
+            const dob = new Date(document.getElementById('dob').value);
+            const age = calculateAge(dob);
+
+            if (name && type && dob) {
+                const pet = { name, type, dob: dob.toISOString() }; // Store the date in ISO format
+
+                // Get current pets from localStorage
+                const pets = JSON.parse(localStorage.getItem('pets')) || [];
+                pets.push(pet);
+                localStorage.setItem('pets', JSON.stringify(pets));
+
+                // Add the pet to the display
+                addPetToDisplay(pet);
+                
+                // Clear the input fields
+                document.getElementById('petName').value = '';
+                document.getElementById('petType').value = 'dog';
+                document.getElementById('dob').value = '';
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function loadPets() {
+            const pets = JSON.parse(localStorage.getItem('pets')) || [];
+            pets.forEach(pet => addPetToDisplay(pet));
+        }
+
+        function addPetToDisplay(pet) {
+            const petList = document.getElementById('petList');
+            const petItem = document.createElement('div');
+            petItem.className = 'pet-item';
+            const age = calculateAge(new Date(pet.dob));
+            petItem.innerHTML = `<strong>${pet.name}</strong> (${pet.type}) - Age: ${age} years`;
+            petList.appendChild(petItem);
+        }
+
+        function calculateAge(birthDate) {
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+    </script>
+</body>
+</html>

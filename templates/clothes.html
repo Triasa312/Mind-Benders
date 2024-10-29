@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='clothes.css') }}">
+    <style>
+        .clothes-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 16px;
+            margin: 16px;
+            text-align: center;
+            width: 200px; /* Adjust width as needed */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center; /* Center align items */
+        }
+
+        .clothes-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .add-to-cart-button {
+            background-color: green; /* Green background color */
+            color: white; /* White text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px; /* Space between the button and other elements */
+        }
+
+        .add-to-cart-button:hover {
+            background-color: darkgreen; /* Darker green on hover */
+        }
+
+        .size-select {
+            margin: 10px 0; /* Space between size dropdown and other elements */
+            padding: 5px; /* Padding for size dropdown */
+            border-radius: 5px; /* Rounded corners for dropdown */
+            width: 100%; /* Make dropdown full width */
+        }
+    </style>
+    <script>
+        function addToCart(clothesName, price, image) {
+            const size = document.getElementById(`size-select-${clothesName.replace(/ /g, '-')}`).value;
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name: clothesName, price: price, image: image, size: size });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${clothesName} (Size: ${size}) added to cart at Rs.${price.toFixed(2)}`);
+        }
+
+        function viewCart() {
+            window.location.href = "cart.html"; // Redirect to cart page
+        }
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+        function onAppointmentClick() {
+            navigateTo("{{ url_for('appointments') }}");
+        }
+        function onMedicineClick() {
+            navigateTo("{{ url_for('medicines') }}");
+        }
+        function onOrderFoodClick() {
+            navigateTo("{{ url_for('foodordering') }}");
+        }
+        function onOrderClothClick() {
+            navigateTo("{{ url_for('clothes') }}");
+        }
+        function onHomeClick() {
+            navigateTo("{{ url_for('home') }}");
+        }
+        function callSigninPage() {
+            navigateTo("{{ url_for('signin') }}");
+        }
+        function callAccountFlyer() {
+            navigateTo("{{ url_for('account') }}");
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <button onclick="onHomeClick()" class="homebutton">PET-O-CARE</button>
+        <div class="spacer"></div>
+        <div>
+            <button class="navbar-links" onclick="onMedicineClick()">Medicines</button>
+            <button class="navbar-links" onclick="onAppointmentClick()">Appointments</button>
+            <button class="navbar-links" onclick="onOrderFoodClick()">Foods</button>
+            <button class="navbar-links" onclick="onOrderClothClick()">Clothes</button>
+        </div>
+        <div class="spacer"></div>
+        <button onclick="callSigninPage()" class="signin">Log In</button>
+        <button onclick="callAccountFlyer()" class="account">Account</button>
+    </header>
+    <div class="page-note">       
+        <h1>Pet Clothes Ordering</h1>
+    </div>
+    <div class="container">
+        <div class="clothes-options">
+            <div class="clothes-card">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/PV-65-ORNGE-MAIN.png?v=1725860876" >
+                <h3>Pet Vogue Reflective Rope Leash for Dogs (Orange)</h3>
+                <p>Price: Rs.389</p>
+                <button class="add-to-cart-button" onclick="addToCart('Pet Vogue Reflective Rope Leash for Dogs (Orange)', 389.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/PV-65-ORNGE-MAIN.png?v=1725860876')">Add to Cart</button>
+            </div>
+            <div class="clothes-card">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/image3_92af8b8b-b55b-4dc3-b046-e734eabfc661.png?v=1721309149">
+                <h3>Truelove Waterproof Pet Boots for Dogs (Orange, Set of 4)</h3>
+                <p>Price: Rs.1949</p>
+                <select id="size-select-Truelove-Waterproof-Pet-Boots-for-Dogs-(Orange,-Set-of-4)" class="size-select">
+                    <option value="XSS">XSS</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button class="add-to-cart-button" onclick="addToCart('Truelove Waterproof Pet Boots for Dogs (Orange, Set of 4)', 1949.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/image3_92af8b8b-b55b-4dc3-b046-e734eabfc661.png?v=1721309149')">Add to Cart</button>
+            </div>
+            <div class="clothes-card">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Frame_344685367.png?v=1722947226">
+                <h3>The Happy Lots Pet Halloween Tshirt for Dogs (Orange)</h3>
+                <p>Price: Rs.269</p>
+                <select id="size-select-The-Happy-Lots-Pet-Halloween-Tshirt-for-Dogs-(Orange)" class="size-select">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                </select>
+                <button class="add-to-cart-button" onclick="addToCart('The Happy Lots Pet Halloween Tshirt for Dogs (Orange)', 269.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Frame_344685367.png?v=1722947226')">Add to Cart</button>
+            </div>
+            <div class="clothes-card">
+                <img src="https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Frame344685359.png?v=1722944986">
+                <h3>The Happy Lots Pet Halloween Tshirt for Dogs</h3>
+                <p>Price: Rs.269</p>
+                <select id="size-select-The-Happy-Lots-Pet-Halloween-Tshirt-for-Dogs" class="size-select">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                </select>
+                <button class="add-to-cart-button" onclick="addToCart('The Happy Lots Pet Halloween Tshirt for Dogs', 269.00, 'https://cdn.shopify.com/s/files/1/0565/8021/0861/files/Frame344685359.png?v=17229449867')">Add to Cart</button>
+            </div>
+            <div class="clothes-card">
+                <img src="https://supertails.com/cdn/shop/files/Indigo-4.jpg?v=1724997486">
+                <h3>Pet Set Go Cotton Shirt for Dogs (Indigo)</h3>
+                <p>Price: Rs.799</p>
+                <select id="size-select-Pet-Set-Go-Cotton-Shirt-for-Dogs-(Indigo)" class="size-select">
+                    <option value="20">20</option>
+                    <option value="24">24</option>
+                    <option value="26">26</option>
+                </select>
+                <button class="add-to-cart-button" onclick="addToCart('Pet Set Go Cotton Shirt for Dogs (Indigo)', 799.00, 'https://supertails.com/cdn/shop/files/Indigo-4.jpg?v=1724997486')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

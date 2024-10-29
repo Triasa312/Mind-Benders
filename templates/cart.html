@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cart.css') }}">
+    <style>
+        /* Basic styling for body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fbd8f0; /* Light background for the page */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+        }
+
+        /* Cart Title Box Styling */
+        .cart-title {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* Text color */
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center the text */
+            width: 100%; /* Responsive width */
+            max-width: 2000px; /* Max width for larger screens */
+            margin-top: 0px; /* Space above the title */
+            margin-bottom: 20px; /* Space below the title */
+        }
+
+        /* Cart Container Styling */
+        .cart-container {
+            width: 100%; /* Responsive width */
+            max-width: 600px; /* Max width for larger screens */
+            text-align: center; /* Center the text */
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pink-modal {
+            background-color: #ffe6f0; /* Light pink background */
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Input and button styles */
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .styled-button {
+            flex: 1;
+            padding: 12px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .next-button {
+            background-color: #ff5c8d;
+        }
+
+        .next-button:hover {
+            background-color: #e5537d;
+        }
+
+        .cancel-button {
+            background-color: #aaa;
+        }
+
+        .cancel-button:hover {
+            background-color: #888;
+        }
+
+        /* Modal headers */
+        .pink-modal h2 {
+            color: #d14a68;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Styling for cart items */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .cart-item img {
+            width: 50px; /* Adjust the size as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cart Title Section -->
+    <div class="cart-title">
+        <h1>My Cart</h1>
+    </div>
+
+    <!-- Cart Container -->
+    <div class="cart-container">
+        <div id="cart-items">
+            <!-- Cart items will be injected here by JavaScript -->
+        </div>
+        
+        <!-- Checkout button -->
+        <button onclick="openCheckoutForm()" class="checkout-button">Checkout</button>
+    </div>
+
+    <!-- Checkout Form Modal -->
+    <div id="checkoutForm" class="modal">
+        <div class="modal-content pink-modal">
+            <h2>Shipping Details</h2>
+            
+            <form id="checkoutFormFields">
+                <label for="name">Name:</label>
+                <input type="text" id="name" class="input-field" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" class="input-field" required>
+
+                <label for="pincode">Pincode:</label>
+                <input type="text" id="pincode" class="input-field" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" class="input-field" rows="3" required></textarea>
+
+                <div class="button-container">
+                    <button type="button" onclick="selectCOD()" class="next-button styled-button">Next</button>
+                    <button type="button" onclick="closeCheckoutForm()" class="cancel-button styled-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- COD Selection Modal with Light Pink Styling -->
+    <div id="codSelection" class="modal">
+        <div class="modal-content pink-modal">
+            <h2>Select Payment Method</h2>
+            <p><input type="radio" id="cod" checked> Cash on Delivery</p>
+            <div class="button-container">
+                <button onclick="placeOrder()" class="place-order-button styled-button">Place Order</button>
+                <button onclick="closeCODSelection()" class="cancel-button styled-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="orderConfirmation" class="modal">
+        <div class="modal-content">
+            <h2>Order Placed!</h2>
+            <p>Thank you for your order. Your order will be delivered by <strong id="deliveryDate"></strong>.</p>
+            <button onclick="closeOrderConfirmation()" class="ok-button">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Add an item to cart and store in localStorage
+        function addToCart(name, price, image) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name, price, image }); // Add image to the cart item
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} has been added to the cart.`);
+        }
+
+        // Load items from localStorage and display in the cart
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+            
+            // Clear the container first
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <p>${item.name} - Rs.${item.price}</p>
+                    <button onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+        }
+
+        // Remove an item from cart and update localStorage
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        // Open checkout form
+        function openCheckoutForm() {
+            document.getElementById("checkoutForm").style.display = "flex";
+        }
+        
+        function closeCheckoutForm() {
+            document.getElementById("checkoutForm").style.display = "none";
+        }
+
+        function selectCOD() {
+            document.getElementById("checkoutForm").style.display = "none";
+            document.getElementById("codSelection").style.display = "flex";
+        }
+
+        function closeCODSelection() {
+            document.getElementById("codSelection").style.display = "none";
+        }
+
+        function placeOrder() {
+            document.getElementById("codSelection").style.display = "none";
+            document.getElementById("orderConfirmation").style.display = "flex";
+
+            // Calculate a delivery date, e.g., 3 days from now
+            let deliveryDate = new Date();
+            deliveryDate.setDate(deliveryDate.getDate() + 3);
+            document.getElementById("deliveryDate").innerText = deliveryDate.toDateString();
+
+            // Clear the cart after order is placed
+            localStorage.removeItem('cart');
+        }
+
+        function closeOrderConfirmation() {
+            document.getElementById("orderConfirmation").style.display = "none";
+            alert("Order placed successfully!");
+            loadCart(); // Refresh cart display after order
+        }
+
+        // Load cart items when page loads
+        document.addEventListener('DOMContentLoaded', loadCart);
+    </script>
+</body>
+</html>

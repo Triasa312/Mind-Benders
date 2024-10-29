@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Pets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(253, 220, 243); /* Light background for the page */
+        }
+        .container {
+            width: 100%;
+            max-width: 5000px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color:#4CAF50;
+            color:rgb(255, 255, 255);
+            border-radius: 8px;
+            margin-top: 0px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            background-color: #4CAF50;
+        }
+        .pet-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Pets</h1>
+        <div id="petList">
+            <!-- Pet items will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        
+        function loadPets() {
+            const pets = JSON.parse(localStorage.getItem('pets')) || [];
+            const petsListContainer = document.getElementById('pets-list');
+
+            if (pets.length === 0) {
+                petsListContainer.innerHTML = '<p>No pets added yet.</p>';
+                return;
+            }
+
+            pets.forEach(pet => {
+                const petItem = document.createElement('div');
+                petItem.classList.add('pet-item');
+                petItem.innerHTML = `
+                    <h3>${pet.name}</h3>
+                    <p>Type: ${pet.type}</p>
+                    <p>Date of Birth: ${pet.dob}</p>
+                    <p>Age: ${getAge(pet.dob)} years</p>
+                `;
+                petsListContainer.appendChild(petItem);
+            });
+        }
+
+        function getAge(dob) {
+            const birthDate = new Date(dob);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+
+            // Adjust age if the birthday hasn't occurred yet this year
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        // Load pets when the page loads
+        document.addEventListener('DOMContentLoaded', loadPets);
+   
+    </script>
+</body>
+</html>

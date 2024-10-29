@@ -87,6 +87,12 @@
         function callAccountFlyer() {
             navigateTo("{{ url_for('account') }}");
         }
+        function onPrivacyClick(){
+            window.location.href = "{{ url_for('privacy') }}";
+        }
+        function onTermsClick(){
+            window.location.href = "{{ url_for('term') }}";
+        }
     </script>
 </head>
 <body>

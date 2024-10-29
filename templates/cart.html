@@ -261,12 +261,23 @@
         }
 
         function placeOrder() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const address = document.getElementById("address").value;
+            const deliveryDate = new Date();
+            deliveryDate.setDate(deliveryDate.getDate() + 3);
+            
+            // Save the order details in localStorage
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push({ name, phone, address, deliveryDate: deliveryDate.toDateString(), items: cart });
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Hide the COD selection and show confirmation
             document.getElementById("codSelection").style.display = "none";
             document.getElementById("orderConfirmation").style.display = "flex";
 
-            // Calculate a delivery date, e.g., 3 days from now
-            let deliveryDate = new Date();
-            deliveryDate.setDate(deliveryDate.getDate() + 3);
+            // Update the delivery date in the confirmation modal
             document.getElementById("deliveryDate").innerText = deliveryDate.toDateString();
 
             // Clear the cart after order is placed

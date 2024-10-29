@@ -6,12 +6,20 @@
     <title>Account Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='accounts.css') }}">
     <style>
-        
         .order-item, .appointment-item {
             border: 1px solid #ddd;
             padding: 12px;
             margin: 8px 0;
             border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .order-image {
+            width: 80px;
+            height: 80px;
+            margin-right: 16px;
+            border-radius: 5px;
+            object-fit: cover;
         }
         #orders-section, #appointments-section {
             display: none;
@@ -39,26 +47,20 @@
         <div class="header">
             <h1>Your Account</h1>
             <div class="user-info">
-                
-                    <div class="user-name">
-                        <span>Name: {{ user_name }}</span> <!-- Dynamic user name -->
-                    </div>   
-                
+                <div class="user-name">
+                    <span>Name: {{ user_name }}</span>
+                </div>   
             </div>
         </div>
 
         <div class="options">
             <h2>Account Options</h2>
             <ul>
-                
                 <li><a href="#pet" onclick="navigateTo('pet')">Add Pet</a></li>
-                <li><a href="#cart" onclick="navigateTo('cart')">My Cart</a></li> <!-- My Cart Option -->
+                <li><a href="#cart" onclick="navigateTo('cart')">My Cart</a></li>
                 <li><a href="#orders" onclick="navigateTo('orders')">My Orders</a></li>
-                <li><a href="#appointments" onclick="navigateTo('appointments')">My Appointments</a></li> <!-- My Appointments Option -->
-                
-                
-                
-                <li><a href="#logout" onclick="navigateTo('log-out')">Log Out</a></li> <!-- Fixed Log Out option -->
+                <li><a href="#appointments" onclick="navigateTo('appointments')">My Appointments</a></li>
+                <li><a href="#logout" onclick="navigateTo('log-out')">Log Out</a></li>
             </ul>
         </div>
         
@@ -82,55 +84,33 @@
         <button onclick="goHome()">Back to Home Page</button>
     </div>
 
-    
-    <script>
-        function addPet() {
-            const name = document.getElementById('petName').value;
-            const type = document.getElementById('petType').value;
-            const dob = document.getElementById('dob').value;
-    
-            if (name && type && dob) {
-                const pets = JSON.parse(localStorage.getItem('pets')) || [];
-                pets.push({ name, type, dob });
-                localStorage.setItem('pets', JSON.stringify(pets));
-    
-                alert('Pet added successfully!');
-                document.getElementById('addPetForm').reset(); // Reset the form
-            } else {
-                alert('Please fill in all fields.');
-            }
-        }
-    </script>
-    
     <script>
         function navigateTo(section) {
             if (section === 'cart') {
-                window.location.href = "{{ url_for('cart') }}"; // Flask route for the cart page
+                window.location.href = "{{ url_for('cart') }}";
             } else if (section === 'orders') {
                 document.getElementById('orders-section').style.display = 'block';
-                document.getElementById('appointments-section').style.display = 'none'; // Hide appointments
+                document.getElementById('appointments-section').style.display = 'none';
                 loadOrders();
             } else if (section === 'appointments') {
                 document.getElementById('appointments-section').style.display = 'block';
-                document.getElementById('orders-section').style.display = 'none'; // Hide orders
+                document.getElementById('orders-section').style.display = 'none';
                 loadAppointments();
-            
             } else if (section === 'pet') {
-                window.location.href = "{{ url_for('pet') }}"; // Flask route for the add pet page
-             
+                window.location.href = "{{ url_for('pet') }}";
             } else {
-                alert("Navigating to: " + section); // Placeholder for other navigation logic
+                alert("Navigating to: " + section);
             }
         }
-        
-        // Sample function to save an order when placed
-        function saveOrder(name, price, date) {
+
+        // Save order function called during ordering
+        function saveOrder(name, price, date, imageUrl, deliveryDate) {
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            orders.push({ name, price, date });
+            orders.push({ name, price, date, imageUrl, deliveryDate });
             localStorage.setItem('orders', JSON.stringify(orders));
         }
 
-        // Load orders from local storage and display in "My Orders" section
+        // Load orders and display them in "My Orders" section
         function loadOrders() {
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
             const ordersList = document.getElementById('orders-list');
@@ -144,23 +124,20 @@
                     const orderItem = document.createElement('div');
                     orderItem.classList.add('order-item');
                     orderItem.innerHTML = `
-                        <p><strong>${order.name}</strong></p>
-                        <p>Price: Rs.${order.price}</p>
-                        <p>Ordered on: ${order.date}</p>
+                        <img src="${order.imageUrl}" alt="Order Image" class="order-image">
+                        <div>
+                            <p><strong>${order.name}</strong></p>
+                            <p>Price: Rs.${order.price}</p>
+                            <p>Ordered on: ${order.date}</p>
+                            <p>Delivery Date: ${order.deliveryDate}</p>
+                        </div>
                     `;
                     ordersList.appendChild(orderItem);
                 });
             }
         }
 
-        // Sample function to save an appointment
-        function saveAppointment(service, date, time) {
-            const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
-            appointments.push({ service, date, time });
-            localStorage.setItem('appointments', JSON.stringify(appointments));
-        }
-
-        // Load appointments from local storage and display in "My Appointments" section
+        // Load appointments function to be implemented as needed
         function loadAppointments() {
             const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
             const appointmentsList = document.getElementById('appointments-list');
@@ -174,19 +151,20 @@
                     const appointmentItem = document.createElement('div');
                     appointmentItem.classList.add('appointment-item');
                     appointmentItem.innerHTML = `
-                        <p><strong>Clinic: ${appointment.name}</strong></p>
-                        <p>Address: ${appointment.address}</p>
-                        <p>Date: ${appointment.date}</p>
-                        <p>Time: ${appointment.time}</p>
+                        <p>Name:<strong>${appointment.name}</strong></p>
+                        <p> 
+                    Date: ${appointment.date}</p>
+                        <p>  
+                            Time: ${appointment.time}</p>
                     `;
                     appointmentsList.appendChild(appointmentItem);
                 });
             }
         }
+
         function goHome() {
-            window.location.href = "{{ url_for('home') }}"; // Replace 'home' with your home route
+            window.location.href = "{{ url_for('home') }}";
         }
     </script>
-    
 </body>
 </html>

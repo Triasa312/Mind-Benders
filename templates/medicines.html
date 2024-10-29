@@ -143,6 +143,16 @@
         function callAccountFlyer(){
             window.location.href = "{{ url_for('account') }}";
         }
+        function onPrivacyClick(){
+            window.location.href = "{{ url_for('signin') }}";
+        }
+        function onPrivacyClick(){
+            window.location.href = "{{ url_for('privacy') }}";
+        }
+        function onTermsClick(){
+            window.location.href = "{{ url_for('term') }}";
+        }
+        
     </script>
 </head>
 <body>
@@ -248,7 +258,39 @@
             </div>
         </div>
     </div>
-
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Learn more about Pet O Care, our mission, and how we support pet owners worldwide.</p>
+                
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <button onclick="onPrivacyClick()" class = "option-button">Privacy</button>
+                    <button onclick="onTermsClick()" class = "option-button">Terms of Services</button>
+                </ul>
+            </div>
+           
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: triasa312@gmail.com</p>
+                <p>Phone: 7003485426</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    
+                    <a href="#"><img src="{{ url_for('static', filename='icons/instagram.png') }}" alt="Instagram"></a>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Pet O Care. All rights reserved.</p>
+        </div>
+    </footer>
     
 </body>
 </html>

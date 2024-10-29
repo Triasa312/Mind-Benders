@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='privacy.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fcd8fe;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fcd8fe;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #4CAF50;
+        }
+        p {
+            line-height: 1.6;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <p>Last updated: [Date]</p>
+
+        <h2>1. Data Collection</h2>
+        <p>We collect only the data necessary for the app's functionality, including:</p>
+        <ul>
+            <li>User names</li>
+            <li>Email addresses</li>
+            <li>Location data (if applicable)</li>
+        </ul>
+        <p>We are transparent about what data we collect, how it will be used, and how long it will be stored.</p>
+
+        <h2>2. User Consent</h2>
+        <p>We obtain explicit consent from users before collecting personal data, allowing them to choose what types of data they share.</p>
+
+        <h2>3. Data Usage</h2>
+        <p>Data is used solely for the purpose it was collected for. Users can access and modify their data at any time.</p>
+
+        <h2>4. Data Security</h2>
+        <p>We implement strong encryption methods for data storage and transmission to protect user information.</p>
+
+        <h2>5. Third-Party Services</h2>
+        <p>We may use third-party services that adhere to privacy standards and protect user data as described in our policy.</p>
+
+        <h2>6. Compliance with Regulations</h2>
+        <p>We comply with GDPR, CCPA, and other relevant privacy laws to protect our users’ rights.</p>
+
+        <h2>7. User Education</h2>
+        <p>We provide a clear privacy policy and in-app notifications to educate users about their privacy rights.</p>
+
+        <h2>8. Regular Audits and Updates</h2>
+        <p>Our privacy practices are regularly audited and updated to reflect changing regulations and technology.</p>
+
+        <h2>9. User Control</h2>
+        <p>Users have easy access to privacy settings within the app to manage their preferences.</p>
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions about our privacy policy, please contact us at <a href="triasa312@gmail.com">support@example.com</a>.</p>
+
+        <div class="back-home">
+            <button onclick="goHome()">Back to Home Page</button>
+        </div>
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = "{{ url_for('home') }}"; // Update with the correct URL
+        }
+    </script>
+</body>
+</html>

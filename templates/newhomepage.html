@@ -27,7 +27,13 @@
         function callAccountFlyer(){
             window.location.href = "{{ url_for('account') }}";
         }
-
+        function onPrivacyClick(){
+            window.location.href = "{{ url_for('privacy') }}";
+        }
+        function onTermsClick(){
+            window.location.href = "{{ url_for('term') }}";
+        }
+        
     </script>
 </head>
 <body>
@@ -49,7 +55,7 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Pet O Care</h1>
-            <p>Pet O Care is one of the trusted website for taking care of pets. It offers you with various options such as buying food, clothes, and authenticated medicines. The pet parent can also book appointments to the nearest vets. Hope we can help you out with all your problems. ENJOY!!!!!</p>
+            <p>Pet O Care is one of the most trusted websites for taking care of pets. It offers you with various options such as buying food, clothes, and authenticated medicines. The pet parent can also book appointments to the nearest vets. Hope we can help you out with all your problems. ENJOY!!!!!</p>
         </div>
         <div class="spacer"></div>
         <img class= "hero-img" src ="https://png.pngtree.com/png-vector/20231017/ourmid/pngtree-cute-cartoon-happy-dog-png-file-png-image_10201723.png" ></img>
@@ -102,8 +108,9 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <button onclick="onPrivacyClick()" class = "option-button">Privacy</button>
-                    <button onclick="onTermsClick()" class = "option-button">Terms of Services</button>
+                    
+                    <button onclick="onPrivacyClick()" class = "privacy">Privacy</button>
+                    <button onclick="onTermsClick()" class = "terms">Terms of Services</button>
                 </ul>
             </div>
            

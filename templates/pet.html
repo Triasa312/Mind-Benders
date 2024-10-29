@@ -9,14 +9,14 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8; /* Light background for the page */
+            background-color: #f8f8f8;
         }
         .container {
             width: 100%;
             max-width: 600px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #f9e9f6; /* Light pink background for the form */
+            background-color: #fcd8fe;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -24,6 +24,11 @@
             text-align: center;
             color: #4CAF50;
         }
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
         label {
             display: block;
             margin: 10px 0 5px;
@@ -56,6 +61,21 @@
             padding: 10px;
             border-radius: 4px;
             margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .remove-button {
+            background-color: #4CAF50; /* Green background */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            width:80px;
+        }
+        .remove-button:hover {
+            background-color: #45a049; /* Darker green on hover */
         }
     </style>
 </head>
@@ -83,7 +103,6 @@
     </div>
 
     <script>
-        // Load pets from localStorage when the page loads
         window.onload = function() {
             loadPets();
         };
@@ -92,20 +111,16 @@
             const name = document.getElementById('petName').value;
             const type = document.getElementById('petType').value;
             const dob = new Date(document.getElementById('dob').value);
-            const age = calculateAge(dob);
 
             if (name && type && dob) {
-                const pet = { name, type, dob: dob.toISOString() }; // Store the date in ISO format
+                const pet = { name, type, dob: dob.toISOString() };
 
-                // Get current pets from localStorage
                 const pets = JSON.parse(localStorage.getItem('pets')) || [];
                 pets.push(pet);
                 localStorage.setItem('pets', JSON.stringify(pets));
 
-                // Add the pet to the display
                 addPetToDisplay(pet);
                 
-                // Clear the input fields
                 document.getElementById('petName').value = '';
                 document.getElementById('petType').value = 'dog';
                 document.getElementById('dob').value = '';
@@ -116,7 +131,14 @@
 
         function loadPets() {
             const pets = JSON.parse(localStorage.getItem('pets')) || [];
-            pets.forEach(pet => addPetToDisplay(pet));
+            const petList = document.getElementById('petList');
+            petList.innerHTML = '<h2>Your Pets:</h2>'; // Clear the list and re-add the header
+
+            if (pets.length === 0) {
+                petList.innerHTML += '<p>No pets found.</p>'; // Display message if no pets are found
+            } else {
+                pets.forEach(pet => addPetToDisplay(pet));
+            }
         }
 
         function addPetToDisplay(pet) {
@@ -124,18 +146,41 @@
             const petItem = document.createElement('div');
             petItem.className = 'pet-item';
             const age = calculateAge(new Date(pet.dob));
-            petItem.innerHTML = `<strong>${pet.name}</strong> (${pet.type}) - Age: ${age} years`;
+            petItem.innerHTML = `
+                <div>
+                    <strong>${pet.name}</strong> (${pet.type}) - Age: ${age.years} years and ${age.months} months
+                </div>
+                <button class="remove-button" onclick="removePet('${pet.name}')">Remove</button>
+            `;
             petList.appendChild(petItem);
+        }
+
+        function removePet(name) {
+            const pets = JSON.parse(localStorage.getItem('pets')) || [];
+            const updatedPets = pets.filter(pet => pet.name !== name); // Filter out the pet to be removed
+            localStorage.setItem('pets', JSON.stringify(updatedPets)); // Update localStorage
+            loadPets(); // Reload pets to reflect the changes
         }
 
         function calculateAge(birthDate) {
             const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+
+            if (months < 0) {
+                years--;
+                months += 12;
             }
-            return age;
+
+            if (today.getDate() < birthDate.getDate()) {
+                months--;
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+            }
+
+            return { years, months };
         }
     </script>
 </body>

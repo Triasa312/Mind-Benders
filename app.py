@@ -33,6 +33,14 @@ def clothes():
 @app.route('/signin')
 def signin():
     return render_template('signin.html')
+# privacy route
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+@app.route('/term')
+def term():
+    return render_template('term.html')
+
 
 @app.route('/account')
 def account():
@@ -80,6 +88,5 @@ def get_vets():
     
     return jsonify(vets_info)
 
-# Run the app
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)

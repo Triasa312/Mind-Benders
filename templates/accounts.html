@@ -41,6 +41,9 @@
             background-color: #1cf75e;
         }
     </style>
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 </head>
 <body>
     <div class="container">
@@ -48,7 +51,7 @@
             <h1>Your Account</h1>
             <div class="user-info">
                 <div class="user-name">
-                    <span>Name: {{ user_name }}</span>
+                    <span>Name: <span id="account-name">User</span></span>
                 </div>   
             </div>
         </div>
@@ -60,7 +63,7 @@
                 <li><a href="#cart" onclick="navigateTo('cart')">My Cart</a></li>
                 <li><a href="#orders" onclick="navigateTo('orders')">My Orders</a></li>
                 <li><a href="#appointments" onclick="navigateTo('appointments')">My Appointments</a></li>
-                <li><a href="#logout" onclick="navigateTo('log-out')">Log Out</a></li>
+                <li><a href="#logout" onclick="logout()">Log Out</a></li>
             </ul>
         </div>
         
@@ -85,6 +88,24 @@
     </div>
 
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCxvdfqE2LyknkonBQKAcPU0tNWs2CcVYo",
+            authDomain: "petocare.firebaseapp.com",
+            projectId: "petocare",
+            storageBucket: "petocare.appspot.com",
+            messagingSenderId: "1057517839031",
+            appId: "1:1057517839031:web:8ab61485330923d560e332"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        // Function to display the user's name
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById('account-name').textContent = user.displayName || "User";
+            }
+        });
+
         function navigateTo(section) {
             if (section === 'cart') {
                 window.location.href = "{{ url_for('cart') }}";
@@ -103,63 +124,13 @@
             }
         }
 
-        // Save order function called during ordering
-        function saveOrder(name, price, date, imageUrl, deliveryDate) {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            orders.push({ name, price, date, imageUrl, deliveryDate });
-            localStorage.setItem('orders', JSON.stringify(orders));
-        }
-
-        // Load orders and display them in "My Orders" section
-        function loadOrders() {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            const ordersList = document.getElementById('orders-list');
-
-            ordersList.innerHTML = '';
-
-            if (orders.length === 0) {
-                ordersList.innerHTML = '<p>No orders found.</p>';
-            } else {
-                orders.forEach((order) => {
-                    const orderItem = document.createElement('div');
-                    orderItem.classList.add('order-item');
-                    orderItem.innerHTML = `
-                        <img src="${order.imageUrl}" alt="Order Image" class="order-image">
-                        <div>
-                            <p><strong>${order.name}</strong></p>
-                            <p>Price: Rs.${order.price}</p>
-                            <p>Ordered on: ${order.date}</p>
-                            <p>Delivery Date: ${order.deliveryDate}</p>
-                        </div>
-                    `;
-                    ordersList.appendChild(orderItem);
-                });
-            }
-        }
-
-        // Load appointments function to be implemented as needed
-        function loadAppointments() {
-            const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
-            const appointmentsList = document.getElementById('appointments-list');
-
-            appointmentsList.innerHTML = '';
-
-            if (appointments.length === 0) {
-                appointmentsList.innerHTML = '<p>No appointments found.</p>';
-            } else {
-                appointments.forEach((appointment) => {
-                    const appointmentItem = document.createElement('div');
-                    appointmentItem.classList.add('appointment-item');
-                    appointmentItem.innerHTML = `
-                        <p>Name:<strong>${appointment.name}</strong></p>
-                        <p> 
-                    Date: ${appointment.date}</p>
-                        <p>  
-                            Time: ${appointment.time}</p>
-                    `;
-                    appointmentsList.appendChild(appointmentItem);
-                });
-            }
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                alert("You have been logged out.");
+                window.location.href = "{{ url_for('signin') }}"; // Redirect to login page
+            }).catch((error) => {
+                console.error("Logout error:", error);
+            });
         }
 
         function goHome() {

@@ -52,7 +52,7 @@
                                 <p>Address: ${vet.address}</p>
                                 <p>Phone: ${vet.phone}</p>
                                 <p>Rating: ${vet.rating}</p>
-                                <button onclick="bookAppointment('${vet.name}', '${vet.address}')">Book Appointment</button>
+                                <button class="book-appointment-button" onclick="bookAppointment('${vet.name}', '${vet.address}')">Book Appointment</button>
                             `;
                             document.getElementById('clinics-list').appendChild(clinicCard);
                         });
@@ -176,9 +176,7 @@
             <div class="footer-section">
                 <h3>Follow Us</h3>
                 <div class="social-icons">
-                    
                     <a href="#"><img src="{{ url_for('static', filename='icons/instagram.png') }}" alt="Instagram"></a>
-                    
                 </div>
             </div>
         </div>

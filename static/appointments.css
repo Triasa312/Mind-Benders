@@ -80,6 +80,19 @@ h1 {
 .clinic-card p {
     color: #6c757d;
 }
+.book-appointment-button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.book-appointment-button:hover {
+    background-color: darkgreen;
+}
+
 header{
     display:flex;
     text-align: left;

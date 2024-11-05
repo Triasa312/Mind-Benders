@@ -1,0 +1,1 @@
+PET-O-CARE is a website application where pet parents can buy food,clothes, and authenticated medicines for their dogs and cats. We have also used a Google API so that the user can book appointments to the nearest vet clinics.

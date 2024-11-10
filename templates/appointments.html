@@ -31,17 +31,12 @@
             window.location.href = "{{ url_for('term') }}";
         }
 
-        // Function to find clinics based on pincode
+        
         function findClinics() {
             const pincode = document.getElementById('pincode').value;
             if (pincode.length === 6) {
                 fetch(`/get_vets?pincode=${pincode}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
+                    .then(response => response.json())
                     .then(data => {
                         document.getElementById('clinics-list').innerHTML = '';
                         data.forEach(vet => {
@@ -67,12 +62,12 @@
         }
 
         // Function to book an appointment
-        function bookAppointment(clinicName, address) {
+        function bookAppointment(clinicName, clinicAddress) {
             const appointment = {
                 name: clinicName,
-                address: address,
-                date: getFutureDate(2), // Get the date two days from now
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // Current time
+                address: clinicAddress,
+                date: getFutureDate(2),
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             };
             
             saveAppointment(appointment);
@@ -88,38 +83,14 @@
             localStorage.setItem('appointments', JSON.stringify(appointments));
         }
 
-        // Function to load appointments from local storage
-        function loadAppointments() {
-            const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
-            const appointmentsList = document.getElementById('appointments-list');
-            
-            appointmentsList.innerHTML = ''; // Clear the list first
-
-            if (appointments.length === 0) {
-                appointmentsList.innerHTML = '<p>No appointments booked.</p>';
-                return;
-            }
-
-            appointments.forEach(appointment => {
-                const appointmentItem = document.createElement('div');
-                appointmentItem.innerHTML = `
-                    <p>${appointment.name} - ${appointment.address}</p>
-                    <p>Date: ${appointment.date}, Time: ${appointment.time}</p>
-                `;
-                appointmentsList.appendChild(appointmentItem);
-            });
-        }
-
         // Function to get a future date
         function getFutureDate(days) {
             const today = new Date();
-            today.setDate(today.getDate() + days); // Add the specified number of days
-            return today.toLocaleDateString(); // Format the date
+            today.setDate(today.getDate() + days);
+            return today.toLocaleDateString();
         }
-
-        // Load appointments when the page is loaded
-        document.addEventListener('DOMContentLoaded', loadAppointments);
-    </script>
+</script>
+        
 </head>
 <body>
     <header>
@@ -148,11 +119,7 @@
     
     <section id="clinics-list" class="clinics-list"></section>
 
-    <!-- Appointments Section -->
-    <section id="appointments-section">
-        <h2>Your Appointments</h2>
-        <div id="appointments-list"></div>
-    </section>
+    
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">

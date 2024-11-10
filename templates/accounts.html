@@ -105,24 +105,93 @@
                 document.getElementById('account-name').textContent = user.displayName || "User";
             }
         });
-
+        
         function navigateTo(section) {
-            if (section === 'cart') {
-                window.location.href = "{{ url_for('cart') }}";
-            } else if (section === 'orders') {
-                document.getElementById('orders-section').style.display = 'block';
-                document.getElementById('appointments-section').style.display = 'none';
-                loadOrders();
-            } else if (section === 'appointments') {
-                document.getElementById('appointments-section').style.display = 'block';
-                document.getElementById('orders-section').style.display = 'none';
-                loadAppointments();
-            } else if (section === 'pet') {
-                window.location.href = "{{ url_for('pet') }}";
-            } else {
-                alert("Navigating to: " + section);
-            }
+        if (section === 'cart') {
+            window.location.href = "{{ url_for('cart') }}";
+        } else if (section === 'orders') {
+            document.getElementById('orders-section').style.display = 'block';
+            document.getElementById('appointments-section').style.display = 'none';
+            loadOrders();
+        } else if (section === 'appointments') {
+            document.getElementById('appointments-section').style.display = 'block';
+            document.getElementById('orders-section').style.display = 'none';
+            loadAppointments();
+        } else if (section === 'pet') {
+            window.location.href = "{{ url_for('pet') }}";
+        } else {
+            alert("Navigating to: " + section);
         }
+    }
+    function loadAppointments() {
+        // Retrieve appointments from local storage
+        const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+        const appointmentsList = document.getElementById('appointments-list');
+        
+        appointmentsList.innerHTML = ''; // Clear the list first
+
+        if (appointments.length === 0) {
+            appointmentsList.innerHTML = '<p>No appointments booked.</p>';
+            return;
+        }
+
+        // Display each appointment with clinic name, address, date, and time
+        appointments.forEach(appointment => {
+            const appointmentItem = document.createElement('div');
+            appointmentItem.classList.add('appointment-item');
+            appointmentItem.innerHTML = `
+                <p>Clinic: ${appointment.name}</p>
+                <p>Address: ${appointment.address}</p>
+                <p>Date: ${appointment.date}</p>
+                <p>Time: ${appointment.time}</p>
+            `;
+            appointmentsList.appendChild(appointmentItem);
+        });
+    }
+
+    // Load appointments when navigating to the "My Appointments" section
+    document.addEventListener('DOMContentLoaded', loadAppointments);
+    
+        
+
+        
+
+
+        
+        function loadOrders() {
+            console.log("Loading orders...");
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const ordersList = document.getElementById('orders-list');
+            ordersList.innerHTML = '';
+
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<p>No orders have been placed yet.</p>';
+                console.log("No orders found in localStorage");
+                return;
+            }
+
+            orders.forEach(order => {
+                const orderItem = document.createElement('div');
+                orderItem.classList.add('order-item');
+                orderItem.innerHTML = `
+                    <div>
+                        <h3>Order placed by: ${order.name}</h3>
+                        <p>Delivery Date: ${order.deliveryDate}</p>
+                        <p>Shipping Address: ${order.address}</p>
+                        <h4>Items:</h4>
+                        <ul>
+                            ${order.items.map(item => `
+                                <li>${item.name} - Rs.${item.price}</li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+                ordersList.appendChild(orderItem);
+            });
+
+            console.log("Orders loaded and displayed.");
+        }
+
 
         function logout() {
             firebase.auth().signOut().then(() => {

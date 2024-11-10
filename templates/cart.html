@@ -201,20 +201,17 @@
     </div>
 
     <script>
-        // Add an item to cart and store in localStorage
+        
         function addToCart(name, price, image) {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.push({ name, price, image }); // Add image to the cart item
+            cart.push({ name, price, image });
             localStorage.setItem('cart', JSON.stringify(cart));
             alert(`${name} has been added to the cart.`);
         }
 
-        // Load items from localStorage and display in the cart
         function loadCart() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartItemsContainer = document.getElementById('cart-items');
-            
-            // Clear the container first
             cartItemsContainer.innerHTML = '';
 
             if (cart.length === 0) {
@@ -234,13 +231,19 @@
             });
         }
 
-        // Remove an item from cart and update localStorage
         function removeFromCart(index) {
             const cart = JSON.parse(localStorage.getItem('cart'));
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             loadCart();
         }
+
+        
+        
+        
+        
+
+            
 
         // Open checkout form
         function openCheckoutForm() {
@@ -267,20 +270,15 @@
             const address = document.getElementById("address").value;
             const deliveryDate = new Date();
             deliveryDate.setDate(deliveryDate.getDate() + 3);
-            
-            // Save the order details in localStorage
+
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
             orders.push({ name, phone, address, deliveryDate: deliveryDate.toDateString(), items: cart });
             localStorage.setItem('orders', JSON.stringify(orders));
-            
-            // Hide the COD selection and show confirmation
+
             document.getElementById("codSelection").style.display = "none";
             document.getElementById("orderConfirmation").style.display = "flex";
-
-            // Update the delivery date in the confirmation modal
             document.getElementById("deliveryDate").innerText = deliveryDate.toDateString();
 
-            // Clear the cart after order is placed
             localStorage.removeItem('cart');
         }
 
@@ -295,3 +293,4 @@
     </script>
 </body>
 </html>
+
